@@ -1,23 +1,30 @@
-
 package projetosistemasw.dao;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 import projetosistemasw.Conexao;
-import projetosistemasw.modelo.TesteUsuario;
-
+import projetosistemasw.model.TesteUsuario;
+import java.sql.ResultSet;
+import projetosistemasw.view.TelaRelatorio;
+import projetosistemasw.view.TelaLogin;
 /**
  *
  * @author danie
  */
 public class TesteUsuarioDAO {
+
     private Connection c;
-    public TesteUsuarioDAO(){
+
+    public TesteUsuarioDAO() {
         this.c = new Conexao().getConnection();
+        
+        
     }
-    public void salvar(TesteUsuario tu){
+
+    public void salvar(TesteUsuario tu) {
         try {
             PreparedStatement st = c.prepareStatement("INSERT INTO usuarios (Nome, Email, Telefone, Celular, Sexo, Endereco, Numero, Complemento, Bairro, Cep, Cidade, Estados, RG, CPF, Usuario, Nascimento, Senha, Imagem) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             st.setString(1, tu.getNome());
@@ -41,50 +48,37 @@ public class TesteUsuarioDAO {
             st.execute();
             st.close();
             JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso!");
-            
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }      
+        }
+    }
+
+    public void logar(TelaLogin tl) {
+       
+        try {
+            ResultSet rs;
+            PreparedStatement st = c.prepareStatement("SELECT * FROM usuarios WHERE usuario=? AND Senha=?");
+            st.setString(1, tl.txtUsuario.getText());
+            st.setString(2, tl.pswSenha.getText());
+            rs = st.executeQuery();
+            if (rs.next()) { // Se encontrou o usuário na tabela
+                TelaRelatorio tela;
+                tela = new TelaRelatorio();
+                tela.setVisible(true);
+                tl.txtUsuario.setText("");
+                tl.pswSenha.setText("");
+            } else { //Senão encontrou o usuário
+                JOptionPane.showMessageDialog(null, "Usuário e/ou senha inválidos");
+                tl.txtUsuario.requestFocus();
+            }
+            st.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
     /*
-    public void Update(Cliente cliente) {
-        try {
-            PreparedStatement st = connection.prepareStatement("UPDATE usuarios SET Nome=?, Email=?, Telefone=?, Celular=?, Sexo=?, Endereco=?, Numero=?, Complemeto=?, Bairro=?, Cep=?, Cidade=?, Estados=?, RG=?, CPF=?, Usuario=?, Nascimento=?, Senha=?, Imagem=? WHERE Id=?");
-            st.setString(1, "Nome");
-            st.setString(2, "Email");
-            st.setString(3, "Telefone");
-            st.setString(4, "Celular");
-            st.setString(5, "Sexo");
-            st.setString(6, "Endereco");
-            st.setString(7, "Numero");
-            st.setString(8, "Complemento");
-            st.setString(9, "Bairro");
-            st.setString(10, "Cep");
-            st.setString(11, "Cidade");
-            st.setString(12, "Estados");
-            st.setString(13, "RG");
-            st.setString(14, "CPF");
-            st.setString(15, "Usuario");
-            st.setString(16, "Nascimento");
-            st.setString(17, "Senha");
-            st.setString(18, "Imagem");
-            st.setInt(19, cliente.getId());
-            st.execute();
-            JOptionPane.showMessageDialog(null, "Update feito com Sucesso!");
-        } catch (SQLException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public void saveOrUpdate(Cliente cliente){
-        if(cliente.getId() == 0){
-            save(cliente);
-        }else{
-            Update(cliente);
-        }
-            
-    }
-    
     public void Delete(Cliente cliente) {
         try {
             PreparedStatement st = connection.prepareStatement("DELETE FROM usuarios WHERE id=?");
@@ -95,6 +89,6 @@ public class TesteUsuarioDAO {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-   */
-    
+     */
+
 }

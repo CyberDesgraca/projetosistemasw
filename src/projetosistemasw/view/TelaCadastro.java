@@ -1,8 +1,9 @@
 package projetosistemasw.view;
 
 import br.com.controle.visao.GerenteDeImagens;
+import javax.swing.JOptionPane;
 import projetosistemasw.dao.TesteUsuarioDAO;
-import projetosistemasw.modelo.TesteUsuario;
+import projetosistemasw.model.TesteUsuario;
 
 /**
  *
@@ -465,7 +466,8 @@ public class TelaCadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNascimentoActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-
+    if(pswSenha.getText().equals(pswRepitaSenha.getText())){
+            
         tes.setNome(txtNome.getText());                                //1
         tes.setEmail(txtEmail.getText());                              //2
         tes.setTelefone(txtTelefone.getText());                        //3
@@ -483,13 +485,16 @@ public class TelaCadastro extends javax.swing.JFrame {
         tes.setNascimento(txtNascimento.getText());                    //15
         tes.setSenha(pswSenha.getText());                              //16
         tes.setImagem(gerenteDeImagens.getUrlImagem());
-        if (jrbMasculino.isSelected()) {                                   //17
+        if (jrbMasculino.isSelected() == false && jrbFeminino.isSelected() == false) {
+            JOptionPane.showMessageDialog(null, "Selecione o campo sexo do formulario");    
+        } else if (jrbMasculino.isSelected()) {                                   //17
             tes.setSexo("Masculino");
         } else if (jrbFeminino.isSelected()) {
             tes.setSexo("feminino");
         }
 
         t.salvar(tes);
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnProcurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcurarActionPerformed

@@ -1,5 +1,7 @@
-
 package projetosistemasw.view;
+
+import javax.swing.JOptionPane;
+import projetosistemasw.dao.TesteUsuarioDAO;
 
 /**
  *
@@ -7,7 +9,9 @@ package projetosistemasw.view;
  */
 public class TelaLogin extends javax.swing.JFrame {
 
+    TesteUsuarioDAO t = new TesteUsuarioDAO();
     
+
     public TelaLogin() {
         initComponents();
     }
@@ -23,7 +27,7 @@ public class TelaLogin extends javax.swing.JFrame {
         sprUsuario = new javax.swing.JSeparator();
         lblUsuario = new javax.swing.JLabel();
         sprSenha = new javax.swing.JSeparator();
-        txtSenha = new javax.swing.JPasswordField();
+        pswSenha = new javax.swing.JPasswordField();
         lblImagemLogin = new javax.swing.JLabel();
         btnEntrar = new javax.swing.JButton();
         btnCadastro = new javax.swing.JButton();
@@ -67,14 +71,14 @@ public class TelaLogin extends javax.swing.JFrame {
         pnlLogin.add(sprSenha);
         sprSenha.setBounds(20, 240, 230, 10);
 
-        txtSenha.setBorder(null);
-        txtSenha.addActionListener(new java.awt.event.ActionListener() {
+        pswSenha.setBorder(null);
+        pswSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSenhaActionPerformed(evt);
+                pswSenhaActionPerformed(evt);
             }
         });
-        pnlLogin.add(txtSenha);
-        txtSenha.setBounds(20, 220, 230, 20);
+        pnlLogin.add(pswSenha);
+        pswSenha.setBounds(20, 220, 230, 20);
 
         lblImagemLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projetosistemasw/imgs/login2.png"))); // NOI18N
         pnlLogin.add(lblImagemLogin);
@@ -139,12 +143,14 @@ public class TelaLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
-    private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
+    private void pswSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pswSenhaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtSenhaActionPerformed
+    }//GEN-LAST:event_pswSenhaActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        // TODO add your handling code here:
+        t.logar(this);
+
+
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
@@ -203,9 +209,9 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.JPanel pnlBack;
     private javax.swing.JPanel pnlLogin;
     private javax.swing.JPanel pnlLogos;
+    public javax.swing.JPasswordField pswSenha;
     private javax.swing.JSeparator sprSenha;
     private javax.swing.JSeparator sprUsuario;
-    private javax.swing.JPasswordField txtSenha;
-    private javax.swing.JTextField txtUsuario;
+    public javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,5 +1,5 @@
 
-package projetosistemasw.modelo;
+package projetosistemasw.model;
 
 /**
  *
