@@ -11,7 +11,7 @@ import java.util.logging.Logger;
  *
  * @author danie
  */
-public class Conexao {
+public  class Conexao {
     public Connection getConnection(){
         System.out.println("Tentando conexão com BD");
         try {
