@@ -15,8 +15,10 @@ import projetosistemasw.view.TelaLogin;
  * @author danie
  */
 public class TesteUsuarioDAO {
-
     private Connection c;
+    public boolean confirmacaoNomeCPF;
+    public boolean confirmacaoLoginSenha;
+    
 
     public TesteUsuarioDAO() {
         this.c = new Conexao().getConnection();
@@ -47,7 +49,7 @@ public class TesteUsuarioDAO {
             st.setString(18, tu.getImagem());
             st.execute();
             st.close();
-            JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso!");
+            
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -63,14 +65,10 @@ public class TesteUsuarioDAO {
             st.setString(2, tl.pswSenha.getText());
             rs = st.executeQuery();
             if (rs.next()) { // Se encontrou o usuário na tabela
-                TelaRelatorio tela;
-                tela = new TelaRelatorio();
-                tela.setVisible(true);
-                tl.txtUsuario.setText("");
-                tl.pswSenha.setText("");
+                //manda a confirmação para a TelaLogin para confirmar o login do usuario
+                confirmacaoLoginSenha = true;
             } else { //Senão encontrou o usuário
-                JOptionPane.showMessageDialog(null, "Usuário e/ou senha inválidos");
-                tl.txtUsuario.requestFocus();
+                confirmacaoLoginSenha = false; 
             }
             st.close();
 
@@ -78,6 +76,28 @@ public class TesteUsuarioDAO {
             throw new RuntimeException(e);
         }
     }
+    
+    public void Puxar(TelaLogin tl, TelaRelatorio tr) {
+       
+        try {
+            ResultSet rs;
+            PreparedStatement st = c.prepareStatement("SELECT * FROM usuarios WHERE Nome=? AND CPF=?");
+            st.setString(1, tr.txtRNome.getText());
+            st.setString(2, tr.txtRCPF.getText());
+            rs = st.executeQuery();
+            if (rs.next()) { // Se encontrou o usuário na tabela
+                confirmacaoNomeCPF = true;
+            } else { //Senão encontrou o usuário
+                confirmacaoNomeCPF = false;
+            }
+            st.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    
+    
+    
     /*
     public void Delete(Cliente cliente) {
         try {
@@ -91,4 +111,4 @@ public class TesteUsuarioDAO {
     }
      */
 
-}
+}}

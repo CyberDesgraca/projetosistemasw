@@ -9,7 +9,7 @@ import projetosistemasw.dao.TesteUsuarioDAO;
  */
 public class TelaLogin extends javax.swing.JFrame {
 
-    TesteUsuarioDAO t = new TesteUsuarioDAO();
+    TesteUsuarioDAO tud = new TesteUsuarioDAO();
     
 
     public TelaLogin() {
@@ -148,9 +148,17 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_pswSenhaActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        t.logar(this);
-
-
+        if(tud.confirmacaoLoginSenha = true){
+        TelaRelatorio tela;
+        tela = new TelaRelatorio();
+        tela.setVisible(true);
+        txtUsuario.setText("");
+        pswSenha.setText("");
+        tud.logar(this);
+        }else{
+            JOptionPane.showMessageDialog(null, "Usuário e/ou senha inválidos");
+            txtUsuario.requestFocus();
+        }
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed

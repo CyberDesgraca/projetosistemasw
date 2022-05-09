@@ -4,11 +4,16 @@
  */
 package projetosistemasw.view;
 
+import javax.swing.JOptionPane;
+import projetosistemasw.dao.TesteUsuarioDAO;
+
 /**
  *
  * @author danie
  */
 public class TelaRelatorio extends javax.swing.JFrame {
+    TesteUsuarioDAO tud = new TesteUsuarioDAO();
+    
 
     /**
      * Creates new form TelaRelatorio
@@ -47,6 +52,8 @@ public class TelaRelatorio extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         lblRLaudo = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -146,12 +153,47 @@ public class TelaRelatorio extends javax.swing.JFrame {
         jPanel1.add(jLabel4);
         jLabel4.setBounds(380, 20, 230, 30);
 
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, -10, 980, 750);
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton1.setText("Salvar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1);
+        jButton1.setBounds(30, 680, 110, 50);
 
-        setSize(new java.awt.Dimension(994, 773));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton2.setText("Gerar Relatório");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2);
+        jButton2.setBounds(170, 680, 160, 50);
+
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(0, 0, 980, 740);
+
+        setSize(new java.awt.Dimension(995, 778));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(tud.confirmacaoNomeCPF = true){
+            //Vai gerar o relatório do ocorrido
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "Nome e/ou Nome inválidos");
+            txtRNome.requestFocus();
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,6 +231,8 @@ public class TelaRelatorio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -205,10 +249,10 @@ public class TelaRelatorio extends javax.swing.JFrame {
     private javax.swing.JLabel lblRLaudo;
     private javax.swing.JLabel lblRLocal;
     private javax.swing.JLabel lblRNome;
-    private javax.swing.JTextField txtRCPF;
+    public javax.swing.JTextField txtRCPF;
     private javax.swing.JTextField txtRCausa;
     private javax.swing.JTextField txtRData;
     private javax.swing.JTextField txtRLocal;
-    private javax.swing.JTextField txtRNome;
+    public javax.swing.JTextField txtRNome;
     // End of variables declaration//GEN-END:variables
 }
