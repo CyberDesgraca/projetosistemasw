@@ -10,9 +10,9 @@ import projetosistemasw.model.TesteUsuario;
  * @author danie
  */
 public class TelaCadastro extends javax.swing.JFrame {
-
+    //conecta as classes do projeto na TelaCadastro
     GerenteDeImagens gerenteDeImagens = new GerenteDeImagens();
-    TesteUsuarioDAO t = new TesteUsuarioDAO();
+    TesteUsuarioDAO tud = new TesteUsuarioDAO();
     TesteUsuario tes = new TesteUsuario();
 
     public TelaCadastro() {
@@ -493,7 +493,7 @@ public class TelaCadastro extends javax.swing.JFrame {
             tes.setSexo("feminino");
         }
 
-        t.salvar(tes);
+        tud.salvar(tes);
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 

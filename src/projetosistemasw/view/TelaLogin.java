@@ -8,12 +8,14 @@ import projetosistemasw.dao.TesteUsuarioDAO;
  * @author danie
  */
 public class TelaLogin extends javax.swing.JFrame {
-
+    //conecta a classe DAO a TelaLogin
     TesteUsuarioDAO tud = new TesteUsuarioDAO();
     
 
     public TelaLogin() {
         initComponents();
+        
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -148,13 +150,16 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_pswSenhaActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        if(tud.confirmacaoLoginSenha = true){
-        TelaRelatorio tela;
-        tela = new TelaRelatorio();
-        tela.setVisible(true);
-        txtUsuario.setText("");
-        pswSenha.setText("");
+        //recebe a confirmação do DAO, para efetuar o login
+        
         tud.logar(this);
+        if(tud.confirmacaoLoginSenha == true){
+            TelaRelatorio tela;
+            tela = new TelaRelatorio();
+            tela.setVisible(true);
+            txtUsuario.setText("");
+            pswSenha.setText("");
+ 
         }else{
             JOptionPane.showMessageDialog(null, "Usuário e/ou senha inválidos");
             txtUsuario.requestFocus();

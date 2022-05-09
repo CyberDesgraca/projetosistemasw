@@ -8,6 +8,8 @@ import javax.swing.JOptionPane;
 import projetosistemasw.Conexao;
 import projetosistemasw.model.TesteUsuario;
 import java.sql.ResultSet;
+import projetosistemasw.model.TesteRelatorio;
+
 import projetosistemasw.view.TelaRelatorio;
 import projetosistemasw.view.TelaLogin;
 /**
@@ -56,15 +58,15 @@ public class TesteUsuarioDAO {
         }
     }
 
+    
     public void logar(TelaLogin tl) {
-       
         try {
-            ResultSet rs;
+            ResultSet rslogin;
             PreparedStatement st = c.prepareStatement("SELECT * FROM usuarios WHERE usuario=? AND Senha=?");
             st.setString(1, tl.txtUsuario.getText());
             st.setString(2, tl.pswSenha.getText());
-            rs = st.executeQuery();
-            if (rs.next()) { // Se encontrou o usuário na tabela
+            rslogin = st.executeQuery();
+            if (rslogin.next()) { // Se encontrou o usuário na tabela
                 //manda a confirmação para a TelaLogin para confirmar o login do usuario
                 confirmacaoLoginSenha = true;
             } else { //Senão encontrou o usuário
@@ -77,15 +79,15 @@ public class TesteUsuarioDAO {
         }
     }
     
-    public void Puxar(TelaLogin tl, TelaRelatorio tr) {
-       
+    
+    public void puxar(TelaRelatorio tr) {
         try {
-            ResultSet rs;
+            ResultSet rspuxar;
             PreparedStatement st = c.prepareStatement("SELECT * FROM usuarios WHERE Nome=? AND CPF=?");
             st.setString(1, tr.txtRNome.getText());
             st.setString(2, tr.txtRCPF.getText());
-            rs = st.executeQuery();
-            if (rs.next()) { // Se encontrou o usuário na tabela
+            rspuxar = st.executeQuery();
+            if (rspuxar.next()) { // Se encontrou o usuário na tabela
                 confirmacaoNomeCPF = true;
             } else { //Senão encontrou o usuário
                 confirmacaoNomeCPF = false;
@@ -95,8 +97,24 @@ public class TesteUsuarioDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
     
-    
+    public void salvaracidente(TesteRelatorio tro) {
+        try {
+            PreparedStatement st = c.prepareStatement("INSERT INTO registro (Nome, CPF, Data, Local, Causa) VALUES (?, ?, ?, ?, ?)");
+            st.setString(1, tro.getTxtRNome());
+            st.setString(2, tro.getTxtRCPF());
+            st.setString(3, tro.getTxtRData());
+            st.setString(4, tro.getTxtRLocal());
+            st.setString(5, tro.getTxtRCausa());
+            st.execute();
+            st.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+   
     
     /*
     public void Delete(Cliente cliente) {
@@ -111,4 +129,4 @@ public class TesteUsuarioDAO {
     }
      */
 
-}}
+}

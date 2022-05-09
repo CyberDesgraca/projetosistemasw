@@ -11,6 +11,7 @@ import java.util.logging.Logger;
  *
  * @author danie
  */
+//conecta-se ao banco de dados inserido
 public  class Conexao {
     public Connection getConnection(){
         System.out.println("Tentando conexão com BD");

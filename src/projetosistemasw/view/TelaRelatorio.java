@@ -6,14 +6,17 @@ package projetosistemasw.view;
 
 import javax.swing.JOptionPane;
 import projetosistemasw.dao.TesteUsuarioDAO;
+import projetosistemasw.model.TesteRelatorio;
 
 /**
  *
  * @author danie
  */
 public class TelaRelatorio extends javax.swing.JFrame {
+
+    //conecta o DAO a está tela
     TesteUsuarioDAO tud = new TesteUsuarioDAO();
-    
+    TesteRelatorio tre = new TesteRelatorio();
 
     /**
      * Creates new form TelaRelatorio
@@ -185,14 +188,21 @@ public class TelaRelatorio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(tud.confirmacaoNomeCPF = true){
+        tud.puxar(this);
+        if (tud.confirmacaoNomeCPF == true) {
             //Vai gerar o relatório do ocorrido
+            tre.setTxtRNome(txtRNome.getText());
+            tre.setTxtRCPF(txtRCPF.getText());
+            tre.setTxtRData(txtRData.getText());
+            tre.setTxtRLocal(txtRLocal.getText());
+            tre.setTxtRCausa(txtRCausa.getText());
+            tud.salvaracidente(tre);
             
-        }else{
-            JOptionPane.showMessageDialog(null, "Nome e/ou Nome inválidos");
+        } else if (tud.confirmacaoNomeCPF == false) {
+            //caso não sejá encontrado o nome e/ou CPF digitado na TelaRelaorio no banco de dados
+            JOptionPane.showMessageDialog(null, "Nome e/ou CPF inválidos");
             txtRNome.requestFocus();
         }
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
